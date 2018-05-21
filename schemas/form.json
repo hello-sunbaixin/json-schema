@@ -1,0 +1,75 @@
+{
+    "$id": "http://sunbaixin.github.io/dist/schemas/form.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "$ref": "#/definitions/common"
+        },
+        {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^(?:type|api|labelWidth|labelPosition|debug|name|initApi|initAsyncApi|initFetch|initSchemaFetch|initFinishedField|initCheckInterval|schemaApi|asyncApi|checkInterval|finishedField|primaryField|className|panelClassName|title|mode|horizontal|columnClassName|horizontalDeeper|controls|submitText|submitOnChange|collapsable|collapsable|data|wrapWithPanel|actions|fieldSet|target|tabs|footer|footerClassName|autoFocus|attachChanged|changedKey|changedTrueValue|changedFalseValue)$": {}
+            },
+            "properties": {
+                "$schema": {
+                    "format": "uri",
+                    "type": "string",
+                    "description": "绑定 JSON 格式说明，可忽略！"
+                },
+                "type": {
+                    "const": "form",
+                    "description": "指定为 Form 表单类型"
+                }
+            },
+            "required": [
+                "type"
+            ],
+            "type": "object"
+        }
+    ],
+    "definitions": {
+        "common": {
+            "properties": {
+                "type": {
+                    "const": "form",
+                    "description": "指定为表单类型",
+                    "type": "string"
+                },
+                 "title": {
+                    "$ref": "http://sunbaixin.github.io/dist/schemas/page.json#/definitions/stringOrNull",
+                    "default": "表单",
+                    "description": "表单标题"
+                },
+                "labelWidth":{
+                    "$ref": "http://sunbaixin.github.io/dist/schemas/page.json#/definitions/stringOrNull",
+                    "default":"100px",
+                    "description": "label标签的宽度"
+                },
+                "labelPosition":{
+                    "type": "string",
+                    "default": "left",
+                    "description":"label标签位置展示方式，可以是：left、right或者top",
+                    "enum": [
+                        "left",
+                        "right",
+                        "top"
+                    ]
+
+                },
+                 "mode": {
+                    "default": "normal",
+                    "description": "表单展示方式，可以是：normal、horizontal 或者 inline",
+                    "enum": [
+                        "normal",
+                        "horizontal",
+                        "inline"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "description": "OpenWeb Form 渲染器",
+    "type": "object"
+}

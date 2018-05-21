@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://sunbaixin.github.io/dist/schemas/page.json",
+  "description": "OpenWeb Page 渲染器",
+  
+  "type": "object",
+  "definitions":
+  {
+    "stringOrNull":
+    {
+      "description": "字符或者 null",
+      "oneOf": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "null"
+      }]
+    },
+     "string": {
+            "description": "字符串格式",
+            "type": "string"
+        },
+    "container":
+    {
+      "oneOf": [
+      {
+        "$ref": "#/definitions/string",
+        "description": "当值为字符串时会被当做模板来处理，要指定其他渲染类型请使用对象定义如：\n{\n\n\t  \"type\": \"form\" \n } \n 可通过 $xxx 或者 ${xxx} 取值，或者直接用 lodash.template 模板引擎。\n\n"
+      },
+      {
+        "$ref": "#/definitions/subRenderer"
+      },
+      {
+        "items":
+        {
+          "$ref": "#/definitions/container"
+        },
+        "type": "array"
+      }]
+    },
+     "subRenderer": {
+        "oneOf":[{
+               "$ref":"http://sunbaixin.github.io/dist/schemas/form.json" 
+                }]
+     }
+  },
+  "properties":
+  {
+    "$schema":
+    {
+      "description": "绑定 JSON 格式说明，可忽略！",
+      "format": "uri",
+      "type": "string"
+    },
+    "body":
+        {
+            "items":
+                {
+                    "$ref": "#/definitions/container"
+                },
+            "type": "array",
+            "title": "页面内容区域"
+        },
+    "title":
+    {
+      "$ref": "#/definitions/stringOrNull",
+      "description": "页面标题"
+    }
+  }
+}
